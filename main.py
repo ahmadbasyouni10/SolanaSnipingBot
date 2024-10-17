@@ -20,6 +20,13 @@ phone_number = os.getenv('PHONE')
 
 client = TelegramClient('crypto_tracker', API_ID, API_HASH)
 
+async def fetch_users1():
+    try:
+        group = await client.get_entity(GROUPID)
+        print(f"Fetched group: {group.title}")
+    except Exception as e:
+        print(f"Error fetching group: {e}")
+
 async def fetch_users():
     try:
         users = await client.get_participants(GROUPID)
@@ -36,6 +43,7 @@ async def main():
     # Initialize client using telethon
     await client.start(phone = PHONE)
     print("Client Created")
+    await fetch_users1()
     await fetch_users()
 
     # Listen for new Messages
